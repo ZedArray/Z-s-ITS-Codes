@@ -33,7 +33,17 @@ int main(){
                 chamber.pop_back();
             }
             chamber.push_back(input);
-            int test;
         }
+    }
+    if(out.size() > 0){
+        cout << "Cars left the Roundabout: ";
+        int size = out.size();
+        for(int i = 0; i < size; i++){
+            cout << out.front() << " ";
+            out.pop_front();
+        }
+    }
+    else{
+        cout << "No Cars left the Roundabout" << endl;
     }
 }
