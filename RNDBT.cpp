@@ -33,6 +33,7 @@ int main(){
                 chamber.pop_back();
             }
             chamber.push_back(input);
+            int test;
         }
     }
 }
