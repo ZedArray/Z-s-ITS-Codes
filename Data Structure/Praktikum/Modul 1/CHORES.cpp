@@ -21,9 +21,6 @@ int main(){
     sortedE.sort();
     for(int i = 0; i < n; i++){
         e -= sortedE.front();
-        // if(e < 0){
-        //     break;
-        // }
         if(e >= 0){
             for(int j = 0; j < n ; j++){
                 if(sortedE.front() == energy.front()){
