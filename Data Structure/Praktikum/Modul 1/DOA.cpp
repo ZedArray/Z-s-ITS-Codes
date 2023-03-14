@@ -2,10 +2,11 @@
 using namespace std;
 
 int main(){
-    int n, cmds, biggest = -1000, rotator = 1;
+    int n, cmds;
     deque<int> cont;
     cin >> n;
     cin >> cmds;
+    int unchanged[n];
     if(cmds < 1 ||n < 1){
         cout << "Input Not Valid" << endl;
     }
@@ -14,13 +15,20 @@ int main(){
             int input;
             cin >> input;
             cont.push_back(input);
+            unchanged[i] = input;
         }
-        biggest = cont.front();
-        cont.pop_front();
         for(int i = 0; i < cmds; i++){
+            if(i != 0){
+                cont.clear();
+                for(int j = 0; j < n; j++){
+                    cont.push_back(unchanged[j]);
+                }
+            }
+            int biggest = cont.front();
+            cont.pop_front();
             int commands;
             cin >> commands;
-            for(; rotator < commands; rotator++){
+            for(int j = 1; j < commands ; j++){
                 if(biggest <= cont.front()){
                     cont.push_back(biggest);
                     biggest = cont.front();
