@@ -5,7 +5,6 @@ int main(){
     deque<int> dq;
     int n;
     int counter = 0; 
-    int currentCheck = 0;  
     cin >> n;
     for(int i = 0; i < n; i++){
         int input;
@@ -26,6 +25,7 @@ int main(){
                 counter = 0;
             }
         }
+        size = dq.size();
         cout << size << endl;
     }
     // for(int i = 0; i < n; i++){
