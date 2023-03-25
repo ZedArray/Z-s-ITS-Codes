@@ -12,16 +12,16 @@ int main(){
         dq.push_back(input);
         int size = dq.size();
         for(int j = 0; j < size - 1; j++){
-            if(dq.at(j) == dq.at(j + 1)){
-                counter++;
-            }
-            else if(dq.at(j) != dq.at(j + 1)){
-                counter = 0;
-            }
             if(counter == dq.at(j) - 1){
                 for(int k = 0; k <= counter; k++){
                     dq.pop_back();
                 }
+                counter = 0;
+            }
+            if(dq.at(j) == dq.at(j + 1)){
+                counter++;
+            }
+            else if(dq.at(j) != dq.at(j + 1)){
                 counter = 0;
             }
         }
