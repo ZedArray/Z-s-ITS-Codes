@@ -320,7 +320,7 @@ private:
 			mid->parent = min;
 		}
 
-		if (node_exists(max->left)) max->left->height = find_max(find_height(max->left->left), find_height(max->left->right)) + 
+		if (node_exists(max->left)) max->left->height = find_max(find_height(max->left->left), find_height(max->left->right)) + 1;
 		if (node_exists(max->right)) max->right->height = find_max(find_height(max->right->left), find_height(max->right->right)) + 1;
 		max->height = find_max(find_height(max->left), find_height(max->right)) + 1;
 		min->height = find_max(find_height(min->left), find_height(min->right)) + 1;
@@ -328,3 +328,10 @@ private:
 		//cout << "rotated left" << endl;
 	}
 };
+
+int main(){
+    binary_tree tree;
+    while(1) {
+        
+    } 
+}
