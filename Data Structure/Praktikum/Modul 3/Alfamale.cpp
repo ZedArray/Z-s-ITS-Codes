@@ -31,7 +31,7 @@ public:
 	tree_node* last;
 	lli maxDepth = 0;
 
-	void branch(lli leafNum, lli p, char name[256])
+	void branch(lli leafNum, lli p, char name[100])
 	{
 		tree_node* node = root;
 		lli currDepth = 0;
@@ -39,8 +39,8 @@ public:
 		if (node->key == NULL)
 		{
 			node->key = leafNum;
-			node->price = p;
-			strcpy(node->name, name);
+			//node->price = p;
+			//strcpy(node->name, name);
 			last = node;
 			return;
 		}
@@ -358,7 +358,7 @@ int main(){
             break;
         }
         else{
-            set.get(input);
+            tree.find(input);
         }
     }
 }
