@@ -14,6 +14,8 @@ class tree_node
 {
 public:
 	lli key = NULL;
+	lli price = NULL;
+	char name[256];
 
 	lli height = 1; //used for AVL Trees
 
@@ -29,7 +31,7 @@ public:
 	tree_node* last;
 	lli maxDepth = 0;
 
-	void branch(lli leafNum)
+	void branch(lli leafNum, lli p, char name[100])
 	{
 		tree_node* node = root;
 		lli currDepth = 0;
@@ -37,6 +39,8 @@ public:
 		if (node->key == NULL)
 		{
 			node->key = leafNum;
+			//node->price = p;
+			//strcpy(node->name, name);
 			last = node;
 			return;
 		}
@@ -331,7 +335,30 @@ private:
 
 int main(){
     binary_tree tree;
-    while(1) {
-        
-    } 
+    while(1){
+        int id, price;
+        char name[100];
+        cin >> id >> price;
+        scanf("%s", name);
+        getchar();
+        if (id == 0 && price == 0 && name[0] == '0'){
+            //cout << "bye 1" << endl;
+            break;
+        }
+        else{
+            //cout << "hi 1" << endl;
+            tree.branch(id, price, name);
+        }
+    }
+	tree.balance();
+	while(1){
+        int input;
+        cin >> input;
+        if (input == 0){
+            break;
+        }
+        else{
+            tree.find(input);
+        }
+    }
 }
