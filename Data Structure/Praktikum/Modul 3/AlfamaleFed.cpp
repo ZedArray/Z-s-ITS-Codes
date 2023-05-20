@@ -19,7 +19,10 @@ struct AVLNode {
     char myname[100];
     AVLNode *left, *right;
     int height;
+    int actualHeight;
 };
+
+int maxHeight;
 
 struct AVL
 {
@@ -272,7 +275,7 @@ public:
         }
         
         if (temp->data == value) {
-            cout << "Item Found at page " << temp->height << endl;
+            cout << "Item Found at page " << temp->actualHeight << endl;
             cout << "Item detail: id=" << temp->data << ", name=" << temp->myname << ", price=" << temp->price << endl;
             // cout << "~~~THE LINE BELOW IS THE DATA OF " << value << "~~~" << endl;
             // cout << temp->data << endl;
@@ -288,24 +291,51 @@ public:
     AVLNode* look(AVLNode *root, int value) {
         int page = 0;
         while (root != NULL) {
-            cout << root->data << endl;
+            page++;
+            //cout << root->data << endl;
+            if (value < root->data)
+                root = root->left;
+            else if (value > root->data)
+                root = root->right;
+            else{
+                root->actualHeight = maxHeight - page + 1;
+                return root;
+            }
+        }
+        return root;
+    }
+
+    int heightCounter(AVLNode *root, int value, int hCount) {
+        while (root != NULL) {
+            hCount++;
             if (value < root->data)
                 root = root->left;
             else if (value > root->data)
                 root = root->right;
             else
-                return root;
+                return hCount;
         }
-        return root;
+        return 0;
     }
-};
 
+    int getMaxHeight(int value) {
+        int hCount = 0;
+        int temp = heightCounter(_root, value, hCount);
+        if (temp == 0)
+            return 0;
+        
+        if (temp > 0) return temp;
+        else return 0;
+    }
+    
+};
 
 
 int main(int argc, char const *argv[])
 {
     AVL set;
     set.init();
+    list<int> list;
 
     while(1){
         int id, price;
@@ -320,9 +350,12 @@ int main(int argc, char const *argv[])
         else{
             //cout << "hi 1" << endl;
             set.insert(id, price, name);
+            list.push_back(id);
         }
     }
-
+    list.sort();
+    maxHeight = max(set.getMaxHeight(list.front()), set.getMaxHeight(list.back()));
+    cout << "max Hiehg" << maxHeight << endl;
 
     while(1){
         int input;
@@ -352,3 +385,22 @@ int main(int argc, char const *argv[])
     // printf("\n");
     return 0;
 }
+/* 
+1 1000 Rejoice
+2 2000 Pantene
+3 3000 Dove
+4 4000 Head&Shoulder
+5 5000 Sunsilk
+6 6000 LOreal
+7 7000 Garnier
+8 8000 Ponds
+9 9000 Garnier
+10 10000 Dettol
+0 0 0
+11
+3
+2
+4
+10
+0 
+*/
