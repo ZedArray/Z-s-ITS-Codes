@@ -24,8 +24,7 @@ struct AVLNode {
 
 int maxHeight;
 
-struct AVL
-{
+struct AVL{
 private:
     AVLNode *_root;
     unsigned _size;
