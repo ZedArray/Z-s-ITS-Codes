@@ -4,6 +4,13 @@ using namespace std;
 struct graph{
     vector<int> adjacentEdges;
 };
+/* 
+Make an adjacency list for each coordinate
+ex:
+    adjacencyList[0][0] = {0, 1}, {1, 1}, {1, 0}
+    adjacencyList[1][0] = {2, 0}, {2, 1}, {1, 1}, {1, 0}, {0, 0}
+    adjacencyList[2][0] = {3, 0}, {2, 1}, {1, 1}, {1, 0}
+*/
 
 int main(){
     vector<int> adjacent[10];
