@@ -2,12 +2,11 @@
 using namespace std;
 
 int main(){
-    while(1){
+    int n;
+    while(scanf("%d", &n) != EOF){
         deque<int> queue;
         list<int> list;
         priority_queue<int> end;
-        int n;
-        cin >> n;
         // if(n == EOF){
         //     break;
         // }
