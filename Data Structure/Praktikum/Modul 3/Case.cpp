@@ -17,6 +17,11 @@ struct AVLNode {
     int location = 0;
 };
 
+vector<pair<int, int>> locList;
+deque<int> inserted;
+deque<int> solved;
+
+
 struct AVL
 {
 private:
@@ -32,18 +37,14 @@ private:
     }
 
     AVLNode* _search(AVLNode *root, int value) {
-        int locMarker = 0;
         while (root != NULL) {
             if (value < root->data){
-                locMarker--;
                 root = root->left;
             } 
             else if (value > root->data){
-                locMarker++;
                 root = root->right;
             }
             else
-                root->location = locMarker;
                 return root;
         }
         return root;
@@ -199,6 +200,26 @@ private:
             _inorder(node->right);
         }
     }
+    AVLNode* getLocation(AVLNode *root, int value) {
+        int locMarker = 0;
+        while (root != NULL) {
+            if (value < root->data){
+                locMarker--;
+                root = root->left;
+            } 
+            else if (value > root->data){
+                locMarker++;
+                root = root->right;
+            }
+            else{
+                root->location = locMarker;
+                locList.push_back(make_pair(locMarker, root->data));
+                return root;
+            }
+                
+        }
+        return root;
+    }
 
 public:
     void init() {
@@ -237,7 +258,37 @@ public:
         this->_inorder(_root);
     }
 
+    bool look(int value) {
+        AVLNode *temp = getLocation(_root, value);
+        if (temp == NULL)
+            return false;
+        
+        if (temp->data == value) return true;
+        else return false;
+    }
+
     void solve() {
+        for(int i = 0; i < inserted.size(); i++){
+            look(inserted.at(i));
+        }
+        sort(locList.begin(), locList.end());
+        int indicator = 0;
+        int summer = 0;
+        for(int i = 1; i <= locList.size(); i++){
+            if(i == 1)
+                summer += locList.at(0).second;
+            else if(locList.at(i).first != locList.at(i-1).first){
+                solved.push_back(summer);
+                summer = 0;
+            }
+            if(i > 1)
+            summer += locList.at(i).second;
+
+        }
+        for(int i = 0 ; i < solved.size(); i++){
+            cout << solved.at(i) << " ";
+        }
+        cout << endl;
 
     }
 };
@@ -246,14 +297,13 @@ int main(int argc, char const *argv[])
 {
     AVL set;
     set.init();
-    deque<int> inserted;
 
     int n;
     cin >> n;
 
     for (int i = 0; i < n; i++) {
         string command;
-        int command;
+        cin >> command;
         if(command == "insert"){
             int input;
             cin >> input;
@@ -283,3 +333,16 @@ int main(int argc, char const *argv[])
     // printf("\n");
     return 0;
 }
+
+/* 
+9 
+insert 20 
+insert 10 
+insert 15 
+insert 9 
+insert 6 
+insert 25 
+insert 24 
+insert 26 
+solve
+ */
