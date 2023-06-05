@@ -11,7 +11,7 @@ int main(){
             st.push(input.at(i));
             continue;
         }
-        if(input.empty()){
+        if(st.empty()){
             cout << "unvaldi" << endl;
         }
         if(input.at(i) == ')'){
