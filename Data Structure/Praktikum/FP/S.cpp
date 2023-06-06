@@ -21,8 +21,8 @@ int concat(int a, int b)
 
 int main(){
     int n, divider;
-    int temp;
     int counter = 0;
+    int temp;
     deque<int> dq;
     deque<int> total;
     cin >> n >> divider;
@@ -33,12 +33,14 @@ int main(){
     }
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
+            temp = 0;
             if(dq[i] != dq[j]){
-                temp == concat(dq[i], dq[j]);
+                temp = concat(dq[i], dq[j]);
             }
-
-            cout << temp << endl;
-            if(temp % 11 == 0){
+            else{
+                continue;
+            }
+            if(temp % divider == 0){
                 counter++;
             }
         }
