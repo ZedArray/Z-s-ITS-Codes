@@ -13,13 +13,14 @@ int main(){
         }
         if(st.empty()){
             cout << "unvaldi" << endl;
+            return 0;
         }
         if(input.at(i) == ')'){
             temp = st.top();
             st.pop();
             if(temp != '('){
                 cout << "unvaldi" << endl;
-                break;
+                return 0;
             }
         }
         else if(input.at(i) == '}'){
@@ -27,7 +28,7 @@ int main(){
             st.pop();
             if(temp != '{'){
                 cout << "unvaldi" << endl;
-                break;
+                return 0;
             }
         }
         else if(input.at(i) == ']'){
@@ -35,7 +36,7 @@ int main(){
             st.pop();
             if(temp != '['){
                 cout << "unvaldi" << endl;
-                break;
+                return 0;
             }
         }
     }
