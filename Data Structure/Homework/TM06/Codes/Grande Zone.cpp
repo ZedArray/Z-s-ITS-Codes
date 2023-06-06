@@ -25,7 +25,6 @@ int main(){
             }
             else break;
         }
-        //cout << adder << endl;
         list.push_back(adder);
     }
     list.sort();
