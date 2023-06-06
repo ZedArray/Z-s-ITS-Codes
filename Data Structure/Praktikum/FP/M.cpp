@@ -6,7 +6,9 @@ int main(){
     stack<char> st;
     cin >> input;
     char temp;
-    for(int i = 0; i < input.length(); i++){
+    int length = input.length();
+    cout << length << endl;
+    for(int i = 0; i < length; i++){
         if(input.at(i) == '(' || input[i] == '{' || input[i] == '['){
             st.push(input.at(i));
             continue;
