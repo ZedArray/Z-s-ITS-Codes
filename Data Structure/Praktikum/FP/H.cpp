@@ -281,7 +281,7 @@ int main()
             cin >> input;
             set.insert(input);
         }
-        else if (command == "RK"){
+        else if (strcmp(command, "RK") == 0){
             cin >> input;
             set.RK();
             int size = INO.size();
@@ -294,17 +294,17 @@ int main()
             }
             INO.clear();
         }
-        else if (command == "FD"){
+        else if (strcmp(command, "FD") == 0){
             cin >> input;
             if(!set.getheight(input)){
                 cout << "no " << input << endl;
             }
         }
-        else if (command == "PH"){
+        else if (strcmp(command, "PH") == 0){
             cin >> input;
             set.PH(input);
         }
-        else if (command == "STOP"){
+        else if (strcmp(command, "STOP") == 0){
             cout << "done" << endl;
             break;
         }
