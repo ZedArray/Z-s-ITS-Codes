@@ -268,16 +268,16 @@ private:
     }
 };
 
-int main(int argc, char const *argv[])
+int main()
 {
     BST set;
     set.init();
 
     while(1){
-        string command;
-        cin >> command;
+        char command[10];
+        scanf("%s", command);
         int input;
-        if (command == "IN"){
+        if (strcmp(command, "IN") == 0){
             cin >> input;
             set.insert(input);
         }
@@ -327,5 +327,5 @@ int main(int argc, char const *argv[])
     // set.remove(8);
     // set.traverseInorder();
     // puts("");
-    return 0;
+    //return 0;
 }

@@ -1,13 +1,22 @@
 #include <bits/stdc++.h>
+#define lli unsigned long long int
 using namespace std;
 
 int main(){
-    int n;
+    lli n;
     cin >> n;
-    for(int i = 0; i < n; i++){
-        int input;
+    for(lli i = 0; i < n; i++){
+        lli input;
         cin >> input;
-        int output = pow(2, 0.5 * (input - 1) * input);
+        //cout << input << endl;
+        lli limit = (0.5*(input - 1) * input);
+        //cout << limit <<endl;
+        lli output = 1;
+        for(lli j = 0; j < limit; j++){
+            //cout << limit << endl;
+            output = (2 * output) % 1000000009;
+            //break;
+        }
         cout << "Zodiak found: " << output << " signs" << endl;
     }
     

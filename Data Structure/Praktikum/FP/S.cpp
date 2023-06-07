@@ -24,7 +24,6 @@ int main(){
     int counter = 0;
     int temp;
     deque<int> dq;
-    deque<int> total;
     cin >> n >> divider;
     for(int i = 0; i < n; i++){
         int input;
