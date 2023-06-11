@@ -194,6 +194,5 @@ int main()
         }
         cout << temp << " ";
     }
-    cout << endl;
-
-}
+        cout << endl;
+    }

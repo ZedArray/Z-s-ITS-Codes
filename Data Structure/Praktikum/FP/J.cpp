@@ -1,3 +1,18 @@
+// #include <bits/stdc++.h>
+// using namespace std;
+// #define lli unsigned long long int
+// int main(){
+//     lli n;
+//     cin >> n;
+//     for(lli i = 0; i < n; i++){
+//         lli input;
+//         cin >> input;
+//         lli output;
+//         output = pow(2,(0.5*(input - 1) * input));
+//         cout << "Zodiak found: " << output % 1000000009 << " signs"<< endl;
+//     }
+// }
+
 #include <bits/stdc++.h>
 #define lli unsigned long long int
 using namespace std;
