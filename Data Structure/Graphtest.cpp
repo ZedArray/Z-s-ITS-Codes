@@ -1,11 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define lli long long int
+
 struct graph{
     vector<int> *adjacencies;
+    int size;
+    vector<bool> *visited;
     
     void init(int n){
         adjacencies = new vector<int>[n];
+        size = n;
+        visited = new vector<bool>(n, false);
     }
 
     void addEdge(int src, int dst){
@@ -13,20 +18,23 @@ struct graph{
         adjacencies[dst].push_back(src);
     }
     
-    void print(int n){
-        for(int i = 0; i < n; i++){
-            for(int destination : adjacencies[i]){
-                cout << adjacencies[i].at(i) << " " << destination << endl;
+    void printAll(){
+        // cout << "limit" << n;
+        for(int source = 0; source < size; source++){
+            cout << "Adjacency list of " << source << ": ";
+            for(int destination : adjacencies[source]){
+                cout << destination << ", ";
             }
+            cout << endl;
         }
     }
 };
 
 int main(){
     graph graph;
-    int amountOfNodes = 6;
+    int amountOfNodes = 7;
     graph.init(amountOfNodes);
-    //cin >> amountOfNodes;
+
     graph.addEdge(0, 1);
     graph.addEdge(0, 2);
     graph.addEdge(1, 2);
@@ -35,5 +43,7 @@ int main(){
     graph.addEdge(3, 4);
     graph.addEdge(4, 5);
     graph.addEdge(5, 6);
-    graph.print(amountOfNodes);
+    graph.printAll();
+
+
 }
