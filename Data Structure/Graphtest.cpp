@@ -28,6 +28,13 @@ struct graph{
             cout << endl;
         }
     }
+    void dfs(/* vector<bool> &visited ,*/ int currentNode){
+        //visited = true;
+        visited[currentNode] = true;
+        for(int neighbor : adjacencies[currentNode]){
+            //dfs(graph, visited, neighbor);
+        }
+    }
 };
 
 int main(){
@@ -44,6 +51,8 @@ int main(){
     graph.addEdge(4, 5);
     graph.addEdge(5, 6);
     graph.printAll();
+
+    vector<bool> visited[amountOfNodes];
 
 
 }
