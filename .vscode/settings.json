@@ -58,6 +58,9 @@
     "type_traits": "cpp",
     "utility": "cpp",
     "variant": "cpp",
-    "new": "cpp"
+    "new": "cpp",
+    "string.h": "c",
+    "math.h": "c",
+    "stdio.h": "c"
   }
 }
