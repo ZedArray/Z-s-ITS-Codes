@@ -5,7 +5,7 @@ import math
 import matplotlib.pyplot as plt
 
 #input the amount of cities
-cityAmount = "1000"
+cityAmount = "100"
 
 
 # get cities info
@@ -135,7 +135,6 @@ def geneticAlgorithm(
             break
 
     answer = sorted(population)[0]
-
     return answer, gen_number
 
 
@@ -170,6 +169,7 @@ def main():
     TARGET = 0
 
     cities = getCity()
+    print(cities)
     firstPopulation, firstFitest = selectPopulation(cities, POPULATION_SIZE)
     answer, genNumber = geneticAlgorithm(
         firstPopulation,
@@ -187,6 +187,8 @@ def main():
     print("Target distance: " + str(TARGET))
     print("----------------------------------------------------------------\n")
 
+    print(cities)
+    print(answer)
     drawMap(cities, answer)
 
 
