@@ -34,8 +34,8 @@ def drawMap(city, answer):
 
 
 cityAmount = 100
-populationSize = 100
-generationAmount = 1000
+populationSize = 10
+generationAmount = 10000
 
 
 
@@ -76,7 +76,11 @@ original = chromosome[0][0]
 
 print("Initial Best Distance: " + str(original))
 
+# "Genetic Algorith"
 for i in range(0, generationAmount):
+    # print("\n\nle chromosome of: " + str(i))
+    # print(chromosome)
+    # print("\n\n")
     dis = 0
     newPop = []
     # print("\n\nle chromosome")
@@ -92,12 +96,13 @@ for i in range(0, generationAmount):
     # print([chromosome[0][0], chromosome[0][1]])
     # print([chromosome[1][0], chromosome[1][1]])
 
-    if p1 not in newPop and p2 not in newPop:
+    if p1 not in newPop:
         newPop.append([chromosome[0][0], chromosome[0][1]])
-        newPop.append([chromosome[1][0], chromosome[1][1]])
+    # if p2 not in newPop:
+    #     newPop.append([chromosome[1][0], chromosome[1][1]])
 
     chromosome = []
-    # print("Parents in the NewPop")
+    # print("\n\nParents in the NewPop")
     # print(newPop)
     # p1.pop()
     # p2.pop()
@@ -106,9 +111,10 @@ for i in range(0, generationAmount):
     # print(p1)
     # print(p2)
     # print("\n\n")
-
     # --------Crossover----------
     for j in range(0, int(populationSize/4)):
+        # print("\n\nNEWPOPOOPOPO")
+        # print(newPop)
 
         randomizer = []
         while n:
@@ -184,6 +190,7 @@ for i in range(0, generationAmount):
             tempChild = []
             for k in range(0, int(len(p1)/2)):
                 tempChild.append(p1[k])
+            random.shuffle(tempChild)
             for k in p2:
                 if k not in tempChild:
                     tempChild.append(k)
@@ -203,6 +210,7 @@ for i in range(0, generationAmount):
             # Mix parent2 into parent1
             for k in range(0, int(len(p2)/2)):
                 tempChild.append(p2[k])
+            random.shuffle(tempChild)
             for k in p1:
                 if k not in tempChild:
                     tempChild.append(k)
@@ -228,7 +236,9 @@ for i in range(0, generationAmount):
         random.shuffle(cp1)
         cp1.append(cp1[0])
         dis = totalDistance(cp1)
-        newPop.append([dis,cp1])
+        if cp1 not in newPop:
+            newPop.append([dis,cp1])
+            break
     #     # print("shuffled cp1")
     #     # print(cp1)
     #     # print("\n\n")
@@ -266,7 +276,8 @@ print("\n\nwith the path of: \n")
 print(path)
 print(len(chromosome))
 print(chromosome[len(chromosome)-1])
-
+print("\n\ngoijgapoijfg")
+# print(chromosome)
 drawMap(city, chromosome[0])
 
 # for i in range(0, cityAmount):
