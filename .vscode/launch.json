@@ -3,6 +3,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TreeTest",
+      "request": "launch",
+      "mainClass": "tree.TreeTest",
+      "projectName": "mid"
+    },
+    {
+      "type": "java",
       "name": "MidTest",
       "request": "launch",
       "mainClass": "list.MidTest",

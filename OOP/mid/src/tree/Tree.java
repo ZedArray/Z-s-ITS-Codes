@@ -95,11 +95,12 @@ public class Tree {
 	
 	// 2
 	public void triple() {
+		//multiplies the root node by 3 and then recurse it on the left and right nodes if they are not empty
 		this.root *= 3;
 		if (this.right != null) {
 			right.triple();
 		}
-		if(this.left != null) {
+		if (this.left != null) {
 			left.triple();
 		}
 		
@@ -108,6 +109,7 @@ public class Tree {
 	// 3
 	public void printDepthFirst() {
 		// Your code is in here
+		// prints the root node and then call the function on the left node first and then the right node
 		System.out.println(this.root + " ");
 		if (this.left != null) {
 			left.printDepthFirst();
@@ -120,15 +122,18 @@ public class Tree {
 	// 4
 	public Tree createFreshCopy() {
 		// Your code is in here
+		// initialize 3 temporary trees, one for overall, and the rest for left and right subtree
 		Tree tempTree = null;
 		Tree leftTemp = null;
 		Tree rightTemp = null;
+		// we call the function on left and right node to create copies of the left and right subtree
 		if (left != null){
 			leftTemp = left.createFreshCopy();
 		}
 		if (right != null) {
 			rightTemp = right.createFreshCopy();
 		}
+		// then we return the tree using the left and right subtree copies and the current tree's root
 		tempTree = new Tree(this.root, leftTemp, rightTemp);
 		return tempTree;
 	}
@@ -136,28 +141,35 @@ public class Tree {
 	// 5
 	public int saveDepthFirst(int a[], int whereToStart) {
 		// Your code is in here
+		// we store the root on the designated position
 		a[whereToStart] = root;
+		// we then call it on both sides (left side prioritized because DFS)
 		if (this.left != null) {
 			whereToStart = left.saveDepthFirst(a, whereToStart+1);
 		}
 		if (this.right != null) {
 			whereToStart = right.saveDepthFirst(a, whereToStart+1);
 		}
+		// and then we return the next designated position
 		return whereToStart;
 	}
 	
 	// 6
 	public Tree find(int n) {
 		// Your code is in here
+		// a new tree to store the searched subtree
 		Tree sought = null;
+		// go search on the left side if n is smaller than the current root node
 		if (n < root && left != null) {
 			left.find(n);
 		}
+		// go search on the right side if n is bigger than the current root node
 		else if (n > root && right != null) {
 			right.find(n);
 		}
+		// when we reach the subtree where the root is equals to n, we give that subtree to the "sought" variable and then return that
 		else if (n == root){
-			System.out.println("found it");
+			// System.out.println("found it");
 			sought = this;
 		}
 		return sought;
@@ -166,6 +178,7 @@ public class Tree {
 	// 7 
 	public Tree insert(int n) {
 		// Your code is in here
+		// we do this one by doing a similar search as the previous one. only now we're trying to find a null to insert n into the tree. For both sides, when we find a non null, we call the function on that side. But if we find a null, we create a new tree as a subtree on that null, using n as the root node
 		if (n < root) {
 			if (left != null) {
 				left.insert(n);				
