@@ -34,8 +34,8 @@ def drawMap(city, answer):
 
 
 cityAmount = 100
-populationSize = 10
-generationAmount = 10000
+populationSize = 100
+generationAmount = 1000
 
 
 

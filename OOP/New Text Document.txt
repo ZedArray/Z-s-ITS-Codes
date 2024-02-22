@@ -1,0 +1,3 @@
+ECHO StartTimer %Time% >> List.txt
+Sigs2WordsList.jar
+ECHO StopTimer %Time% >> List.txt

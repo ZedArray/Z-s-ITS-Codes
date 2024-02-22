@@ -1035,9 +1035,9 @@ def crossover(parent1, parent2):
                     break
     return child
 
-POP_SIZE = 100
+POP_SIZE = 50
 
-MAX_GEN = 500
+MAX_GEN = 100
 
 MUTANT_RATE = 0.05
 
