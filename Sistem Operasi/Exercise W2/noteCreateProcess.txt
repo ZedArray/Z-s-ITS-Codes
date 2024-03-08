@@ -1,0 +1,9 @@
+How It Works:
+
+- fork() creates a new process by duplicating the calling process. The new process is called the child process.
+- The child process calls execlp() to replace its image with a new program image (ls command in this case). If execlp() fails, it returns -1, and the error message is printed.
+- The parent process waits for the child process to complete using waitpid(). The waitpid() function suspends execution of the calling process until the child specified by pid argument has changed state.
+- WIFEXITED(status) checks if the child process terminated normally, and WEXITSTATUS(status) returns the exit status of the child.
+- WIFSIGNALED(status) checks if the child process was terminated by a signal, and - WTERMSIG(status) returns the number of the signal that caused the child process to terminate.
+
+Compile the program with gcc -o process_example process_example.c and run it using ./process_example. You should see the output of the ls command followed by the exit status of the child process.

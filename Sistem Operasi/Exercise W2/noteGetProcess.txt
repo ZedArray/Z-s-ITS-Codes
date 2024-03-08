@@ -1,0 +1,16 @@
+How It Works:
+
+- getpid() gets the process ID of the current process (the program itself in this case).
+- sprintf() is used to prepare the command string that includes the process ID. This command uses ps to show the process ID (pid), state (stat), and command (cmd) for the specified PID.
+- system() executes the command, and you'll see the output directly in your terminal, which includes the state of the process.
+
+The stat column in the ps command output shows the state of the process:
+
+    R (running)
+    S (sleeping)
+    D (uninterruptible sleep)
+    Z (zombie)
+    T (stopped by job control signal)
+    t (stopped by debugger during tracing)
+    W (paging)
+    X (dead)

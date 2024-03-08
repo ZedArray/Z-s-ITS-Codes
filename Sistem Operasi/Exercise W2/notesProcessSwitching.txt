@@ -1,0 +1,8 @@
+How It Works:
+
+    The program creates two child processes using fork().
+    Each process (the parent and both children) prints its PID and then sleeps for 1 second.
+    The sleep() call is used here to yield the CPU, giving the OS scheduler a hint to switch to another process.
+    After waking up, each process prints a message again.
+
+When you run this program, you'll likely see the scheduler switching between these processes, demonstrated by the interleaving of their print statements before and after the sleep calls.
