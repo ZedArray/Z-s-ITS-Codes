@@ -1,10 +1,10 @@
 {
-  "C_Cpp_Runner.cCompilerPath": "C:/msys64/mingw64/bin/gcc.exe",
-  "C_Cpp_Runner.cppCompilerPath": "C:/msys64/mingw64/bin/g++.exe",
-  "C_Cpp_Runner.debuggerPath": "C:/msys64/mingw64/bin/gdb.exe",
-  "C_Cpp_Runner.cStandard": "c17",
-  "C_Cpp_Runner.cppStandard": "c++17",
   "C_Cpp_Runner.msvcBatchPath": "",
+  "C_Cpp_Runner.cCompilerPath": "gcc",
+  "C_Cpp_Runner.cppCompilerPath": "g++",
+  "C_Cpp_Runner.debuggerPath": "gdb",
+  "C_Cpp_Runner.cStandard": "",
+  "C_Cpp_Runner.cppStandard": "",
   "C_Cpp_Runner.useMsvc": false,
   "C_Cpp_Runner.warnings": [
     "-Wall",
@@ -12,57 +12,11 @@
     "-Wpedantic",
     "-Wshadow",
     "-Wformat=2",
+    "-Wcast-align",
     "-Wconversion",
-    "-Wnull-dereference",
-    "-Wsign-conversion"
+    "-Wsign-conversion",
+    "-Wnull-dereference"
   ],
-  "C_Cpp_Runner.enableWarnings": true,
-  "C_Cpp_Runner.warningsAsError": false,
-  "C_Cpp_Runner.compilerArgs": [],
-  "C_Cpp_Runner.linkerArgs": [],
-  "C_Cpp_Runner.includePaths": [
-    "${workspaceFolder}/**"
-  ],
-  "C_Cpp_Runner.includeSearch": [
-    "*",
-    "**/*"
-  ],
-  "C_Cpp_Runner.excludeSearch": [
-    "**/build",
-    "**/build/**",
-    "**/.*",
-    "**/.*/**",
-    "**/.vscode",
-    "**/.vscode/**"
-  ],
-  "C_Cpp_Runner.useAddressSanitizer": false,
-  "files.associations": {
-    "iostream": "cpp",
-    "ostream": "cpp",
-    "array": "cpp",
-    "any": "cpp",
-    "string_view": "cpp",
-    "ranges": "cpp",
-    "span": "cpp",
-    "stacktrace": "cpp",
-    "regex": "cpp",
-    "cmath": "cpp",
-    "complex": "cpp",
-    "*.tcc": "cpp",
-    "expected": "cpp",
-    "optional": "cpp",
-    "ratio": "cpp",
-    "system_error": "cpp",
-    "functional": "cpp",
-    "tuple": "cpp",
-    "type_traits": "cpp",
-    "utility": "cpp",
-    "variant": "cpp",
-    "new": "cpp",
-    "string.h": "c",
-    "math.h": "c",
-    "stdio.h": "c"
-  },
   "C_Cpp_Runner.msvcWarnings": [
     "/W4",
     "/permissive-",
@@ -79,6 +33,24 @@
     "/w44265",
     "/w14928"
   ],
+  "C_Cpp_Runner.enableWarnings": true,
+  "C_Cpp_Runner.warningsAsError": false,
+  "C_Cpp_Runner.compilerArgs": [],
+  "C_Cpp_Runner.linkerArgs": [],
+  "C_Cpp_Runner.includePaths": [],
+  "C_Cpp_Runner.includeSearch": [
+    "*",
+    "**/*"
+  ],
+  "C_Cpp_Runner.excludeSearch": [
+    "**/build",
+    "**/build/**",
+    "**/.*",
+    "**/.*/**",
+    "**/.vscode",
+    "**/.vscode/**"
+  ],
+  "C_Cpp_Runner.useAddressSanitizer": false,
   "C_Cpp_Runner.useUndefinedSanitizer": false,
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
