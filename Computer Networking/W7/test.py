@@ -1,13 +1,4 @@
-from sympy import sympify, symbols
-
-expression = "x**2 + 3 * x - 1"
-x = symbols('x')
-my_function = sympify(expression)
-result = my_function.subs(x, 2)
-print(result)  # Output: 9
-
-input = "1+1"
-if input[0].isdigit():
-    print(eval(input))
-else:
-    print(input)
+test = "My name is alakjsdfoijklmnopqrstuvwxy"
+splitTest = test.split(' ', 2)
+print(splitTest[0] + splitTest[1])
+print(splitTest[1])

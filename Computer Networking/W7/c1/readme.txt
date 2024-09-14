@@ -1,0 +1,1 @@
+for the math part, we basically used the function eval() for it. then just send it back with the result plus a little formatting

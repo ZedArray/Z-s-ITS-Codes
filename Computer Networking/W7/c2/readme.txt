@@ -1,0 +1,2 @@
+For the IDs, we're just using normal indexing (1,2,3,...). And for the private messaging, it splits using the split() function. first word(private), second word (target ID), and the rest is on the third slot of the array. the code uses the list_of_clients array and using the second word (target ID) to get the client from list_of_clients.
+And for list, the code just sends a 1 until size of list_of_clients+1 to the client that requested it
