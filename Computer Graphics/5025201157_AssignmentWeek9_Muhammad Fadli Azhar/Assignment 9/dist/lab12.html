@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+
+<head>
+    <title>Textures and glmatrix</title>
+    <style>body {
+  background-color: #eee;
+}
+
+</style>
+
+    <script src="/lab12.eec0aa39.js"></script>
+
+    <script>"use strict";
+const vertexShaderSource = `
+            attribute vec3 a_coords;
+            attribute vec2 a_textureCoords;
+            uniform mat4 u_transformMatrix;
+            uniform mat3 u_normalMatrix;
+            uniform vec3 u_normal;
+            uniform vec3 u_diffuse;
+            varying vec4 v_color;
+            varying vec2 v_textureCoords;
+            void main() {
+                vec3 N = normalize(u_normalMatrix * u_normal);
+                v_color = vec4(abs(N.z) * u_diffuse, 1.0);
+                v_textureCoords = a_textureCoords;
+                vec4 coords4 = vec4(a_coords, 1.0);
+                gl_Position = u_transformMatrix * coords4;
+            }`;
+const fragmentShaderSource = `
+            precision mediump float;
+            varying vec4 v_color;
+            varying vec2 v_textureCoords;
+            uniform sampler2D u_texture;
+            void main() {
+                gl_FragColor = texture2D(u_texture, v_textureCoords) * v_color;
+            }`;
+let gl;
+let uTransformMatrixLoc;
+let uNormalMatrixLoc;
+let aTextureCoordsLoc;
+let uTextureLoc;
+const projection = mat4.create();
+const modelview = mat4.create();
+const modelviewProj = mat4.create();
+const normalMatrix = mat3.create();
+let rotateX = 0;
+let rotateY = 0;
+let rotateZ = 0;
+const textureURLs = [
+    "park/posz.jpg",
+    "park/posx.jpg",
+    "park/negz.jpg",
+    "park/negx.jpg",
+    "park/posy.jpg",
+    "park/negy.jpg"
+];
+const textures = [];
+let texturesLoaded = 0;
+function initTextures(callback) {
+    for(let i = 0; i < textureURLs.length; i++){
+        let texture = gl.createTexture();
+        textures.push(texture);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([
+            255,
+            0,
+            0,
+            255
+        ])); // Dummy texture data
+        let image = new Image();
+        image.src = textureURLs[i];
+        image.onload = function() {
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+            gl.generateMipmap(gl.TEXTURE_2D);
+            texturesLoaded++;
+            if (texturesLoaded === textureURLs.length) callback();
+        };
+    }
+}
+function draw() {
+    gl.clearColor(0, 0, 0, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    mat4.lookAt(modelview, [
+        0,
+        0,
+        10
+    ], [
+        0,
+        0,
+        0
+    ], [
+        0,
+        1,
+        0
+    ]);
+    mat4.rotateX(modelview, modelview, rotateX);
+    mat4.rotateY(modelview, modelview, rotateY);
+    mat4.rotateZ(modelview, modelview, rotateZ);
+    let saveMV = mat4.clone(modelview);
+    for(let i = 0; i < textures.length; i++){
+        drawSquare(i);
+        mat4.copy(modelview, saveMV);
+    }
+}
+function drawSquare(textureIndex) {
+    mat4.multiply(modelviewProj, projection, modelview);
+    gl.uniformMatrix4fv(uTransformMatrixLoc, false, modelviewProj);
+    mat3.normalFromMat4(normalMatrix, modelview);
+    gl.uniformMatrix3fv(uNormalMatrixLoc, false, normalMatrix);
+    gl.bindTexture(gl.TEXTURE_2D, textures[textureIndex]);
+    gl.uniform1i(uTextureLoc, 0);
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+}
+function initGL() {
+    gl.enable(gl.DEPTH_TEST);
+    let prog = createProgram(gl, vertexShaderSource, fragmentShaderSource);
+    gl.useProgram(prog);
+    let uNormalLoc = gl.getUniformLocation(prog, "u_normal");
+    gl.uniform3f(uNormalLoc, 0, 0, 1);
+    let uDiffuseLoc = gl.getUniformLocation(prog, "u_diffuse");
+    gl.uniform3f(uDiffuseLoc, 1, 1, 1);
+    let aCoordsLoc = gl.getAttribLocation(prog, "a_coords");
+    let coordsBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, coordsBuf);
+    let coords = new Float32Array([
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1,
+        1,
+        1,
+        1,
+        -1,
+        1,
+        1
+    ]);
+    gl.bufferData(gl.ARRAY_BUFFER, coords, gl.STATIC_DRAW);
+    gl.vertexAttribPointer(aCoordsLoc, 3, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(aCoordsLoc);
+    aTextureCoordsLoc = gl.getAttribLocation(prog, "a_textureCoords");
+    let textureCoordsBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordsBuf);
+    let textureCoords = new Float32Array([
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+    ]);
+    gl.bufferData(gl.ARRAY_BUFFER, textureCoords, gl.STATIC_DRAW);
+    gl.vertexAttribPointer(aTextureCoordsLoc, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(aTextureCoordsLoc);
+    mat4.perspective(projection, Math.PI / 8, 1, 5, 15);
+    uTransformMatrixLoc = gl.getUniformLocation(prog, "u_transformMatrix");
+    uNormalMatrixLoc = gl.getUniformLocation(prog, "u_normalMatrix");
+    uTextureLoc = gl.getUniformLocation(prog, "u_texture");
+    initTextures(draw);
+}
+function createProgram(gl, vShader, fShader) {
+    let vsh = gl.createShader(gl.VERTEX_SHADER);
+    gl.shaderSource(vsh, vShader);
+    gl.compileShader(vsh);
+    if (!gl.getShaderParameter(vsh, gl.COMPILE_STATUS)) throw new Error("Error in vertex shader:  " + gl.getShaderInfoLog(vsh));
+    let fsh = gl.createShader(gl.FRAGMENT_SHADER);
+    gl.shaderSource(fsh, fShader);
+    gl.compileShader(fsh);
+    if (!gl.getShaderParameter(fsh, gl.COMPILE_STATUS)) throw new Error("Error in fragment shader:  " + gl.getShaderInfoLog(fsh));
+    let prog = gl.createProgram();
+    gl.attachShader(prog, vsh);
+    gl.attachShader(prog, fsh);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error("Link error in program:  " + gl.getProgramInfoLog(prog));
+    return prog;
+}
+function doKey(evt) {
+    let rotationChanged = true;
+    switch(evt.keyCode){
+        case 37:
+            rotateY -= 0.05;
+            break;
+        case 39:
+            rotateY += 0.05;
+            break;
+        case 38:
+            rotateX -= 0.05;
+            break;
+        case 40:
+            rotateX += 0.05;
+            break;
+        case 33:
+            rotateZ += 0.05;
+            break;
+        case 34:
+            rotateZ -= 0.05;
+            break;
+        case 13:
+        case 36:
+            rotateX = rotateY = rotateZ = 0;
+            break;
+        default:
+            rotationChanged = false;
+    }
+    if (rotationChanged) {
+        evt.preventDefault();
+        draw();
+    }
+}
+function init() {
+    try {
+        let canvas = document.getElementById("webglcanvas");
+        gl = canvas.getContext("webgl");
+        if (!gl) throw "Browser does not support WebGL";
+    } catch (e) {
+        document.getElementById("canvas-holder").innerHTML = "<p>Sorry, could not get a WebGL graphics context.</p>";
+        return;
+    }
+    try {
+        initGL();
+    } catch (e) {
+        document.getElementById("canvas-holder").innerHTML = "<p>Sorry, could not initialize the WebGL graphics context:" + e.message + "</p>";
+        console.trace(e);
+        return;
+    }
+    document.addEventListener("keydown", doKey, false);
+// draw(); // No need to call draw here; it will be called after all textures are loaded
+}
+window.onload = init;
+
+</script>
+</head>
+
+<body>
+
+    <h2>A Textured Cube with Basic Lighting</h2>
+
+    <p id="message">Use arrow keys, PageUp, and PageDown to rotate the object.<br>
+        Home or Return key resets rotation to the identity.</p>
+
+    <noscript><hr><h3>This page requires Javascript and a web browser that supports WebGL</h3><hr></noscript>
+
+    <div id="canvas-holder">
+        <canvas width="600" height="600" id="webglcanvas" style="background-color: red"></canvas>
+    </div>
+
+<script src="/lab12.8bf1f172.js"></script></body>
+
+</html>
